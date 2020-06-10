@@ -21,7 +21,7 @@ advance=25
 image_sizes=[5,10,15,20,25,30,35,40,45,50]
 
 def resize_images(arr,new_size):
-    new_arr=[img.resize(new_size,new_size) for img in arr]
+    new_arr=[img.resize((new_size,new_size)) for img in arr]
     return new_arr
 
 parser=argparse.ArgumentParser()
@@ -57,16 +57,16 @@ both_char_list.extend(lower_char_list)
 for _ in range(args.n_samples):
     back_copy=background.copy()
     upper_char_list_c=upper_char_list.copy()
-    lower_char_list_c=lower_char_list_c.copy()
-    both_char_list_c=both_char_list_c.copy()
+    lower_char_list_c=lower_char_list.copy()
+    both_char_list_c=both_char_list.copy()
     blank_c=blank.copy()
 
-    if args.same_size==0:
+    if args.same_sizes==2:
         new_size=random.choice(image_sizes)
         upper_char_list_c=resize_images(upper_char_list_c,new_size)
         lower_char_list_c=resize_images(lower_char_list_c,new_size)
         both_char_list_c=resize_images(both_char_list_c,new_size)
-        blank_c=blank_c.resize(new_size,new_size)
+        blank_c=blank_c.resize((new_size,new_size))
 
     while True:
         if x_ptr>=900:
