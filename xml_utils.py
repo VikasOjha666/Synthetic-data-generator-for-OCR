@@ -11,7 +11,7 @@ def prettify(elem):
 
 
 def addObject(maintag,label,x1,y1,x2,y2):
-    """This will create the subtree same as prescribed by Pascal VOC""""
+    """This will create the subtree same as prescribed by Pascal VOC"""
     object=SubElement(maintag,"object")
     name=SubElement(object,'name')
     name.text=f'{label}'
@@ -31,7 +31,7 @@ def addObject(maintag,label,x1,y1,x2,y2):
     return maintag
 
 def write_as_file(filename,tree):
-    with open(f'{filename}.xml','a') as outfile:
+    with open(f'{filename}.xml','w') as outfile:
         outfile.write(prettify(tree))
 
 

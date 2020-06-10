@@ -5,6 +5,8 @@ import argparse
 from PIL import Image,ImageDraw,ImageFilter
 import random
 import os
+from xml.etree.ElementTree import Element
+from xml_utils import addObject,write_as_file
 
 #Variables declaration.
 file_count=0
@@ -44,8 +46,8 @@ upper_letters_name=os.listdir('./objects/upper/')
 for filename in upper_letters_name:
     upper_char_list.append(Image.open('./objects/upper/'+filename))
 
-lower_letters=os.listdir('./objects/lower/')
-for filename in lower_letters:
+lower_letters_name=os.listdir('./objects/lower/')
+for filename in lower_letters_name:
     lower_char_list.append(Image.open('./objects/lower/'+filename))
 
 
@@ -53,12 +55,18 @@ both_char_list=[]
 both_char_list.extend(upper_char_list)
 both_char_list.extend(lower_char_list)
 
+both_letters_name=[]
+both_letters_name.extend(upper_letters_name)
+both_letters_name.extend(lower_letters_name)
+
 
 
 
 
 
 for _ in range(args.n_samples):
+    top=Element('Annotations')
+
     back_copy=random.choice(background_arr).copy()
     upper_char_list_c=upper_char_list.copy()
     lower_char_list_c=lower_char_list.copy()
@@ -77,7 +85,8 @@ for _ in range(args.n_samples):
             x_ptr=0
             y_ptr+=advance*4
         elif y_ptr>=900:
-            back_copy.save('./generated_images/'+str(file_count)+'.jpg')
+            back_copy.save(f'./generated_data/Images/{str(file_count)}.jpg')
+            write_as_file(f'./generated_data/Annotations/{str(file_count)}',top)
             file_count+=1
             x_ptr=0
             y_ptr=0
@@ -90,22 +99,34 @@ for _ in range(args.n_samples):
                     pass
                 else:
                     if args.char_type==1:
-                        back_copy.paste(random.choice(upper_char_list_c),(x_ptr+advance,y_ptr))
+                        idx=np.random.randint(0,len(upper_char_list_c))
+                        back_copy.paste(upper_char_list_c[idx],(x_ptr+advance,y_ptr))
+                        label=upper_letters_name[idx].split('.')[0]
+                        top=addObject(top,label,x_ptr,y_ptr,x_ptr+advance,y_ptr+advance)
                     elif args.char_type==2:
-                        back_copy.paste(random.choice(lower_char_list_c),(x_ptr+advance,y_ptr))
+                        idx=np.random.randint(0,len(lower_char_list_c))
+                        back_copy.paste(lower_char_list_c[idx],(x_ptr+advance,y_ptr))
+                        label=lower_letters_name.split('.')[0]
+                        top=addObject(top,label,x_ptr,y_ptr,x_ptr+advance,y_ptr+advance)
+
                     elif args.char_type==4:
                         if x_ptr==0:
-                            back_copy.paste(random.choice(upper_char_list_c),(x_ptr+advance,y_ptr))
+                            idx=np.random.randint(0,len(upper_char_list_c))
+                            back_copy.paste(upper_char_list_c[idx],(x_ptr+advance,y_ptr))
+                            label=upper_letters_name[idx].split('.')[0]
+                            top=addObject(top,label,x_ptr,y_ptr,x_ptr+advance,y_ptr+advance)
                         else:
-                            back_copy.paste(random.choice(lower_char_list_c),(x_ptr+advance,y_ptr))
+                            idx=np.random.randint(0,len(lower_char_list_c))
+                            back_copy.paste(lower_char_list_c[idx],(x_ptr+advance,y_ptr))
+                            label=lower_letters_name.split('.')[0]
+                            top=addObject(top,label,x_ptr,y_ptr,x_ptr+advance,y_ptr+advance)
                     elif args.char_type==3:
-                        back_copy.paste(random.choice(both_letters_c),(x_ptr+advance,y_ptr))
+                        idx=np.random.randint(0,len(both_char_list_c))
+                        back_copy.paste(both_char_list_c[idx],(x_ptr+advance,y_ptr))
+                        label=both_letters_label[idx].split(".")[0]
+                        top=addObject(top,label,x_ptr,y_ptr,x_ptr+advance,y_ptr+advance)
                     else:
                         pass
-
-
-
-                    coor_list.append([x_ptr+advance,y_ptr,x_ptr+advance+advance,y_ptr+advance])
                     x_ptr+=advance+1
 
 
