@@ -27,15 +27,17 @@ def resize_images(arr,new_size):
     new_arr=[img.resize((new_size,new_size)) for img in arr]
     return new_arr
 
+#Parsing stuff.
+
 parser=argparse.ArgumentParser()
 parser.add_argument('--n_samples',type=int,help='No of images to generate.',default=1)
-parser.add_argument('--continuos',type=int,help='Whether to put random chars or word based.',default=1)
 parser.add_argument('--char_type',type=int,help='1 for all letters are capital 2 for all small and 3 for mix and 4 for capital at start.',
                     default=1)
 parser.add_argument('--same_sizes',type=int,help='1 for same_size 2 for different_sizes')
 args=parser.parse_args()
 
 
+#Loading images.
 for filename in os.listdir('./background/'):
     background_arr.append(Image.open('./background/'+filename))
 
@@ -62,7 +64,7 @@ both_letters_name.extend(lower_letters_name)
 
 
 
-
+#Placing char images in random places and recording their annotations in xml file.
 
 for _ in range(args.n_samples):
     top=Element('Annotations')
@@ -73,6 +75,7 @@ for _ in range(args.n_samples):
     both_char_list_c=both_char_list.copy()
     blank_c=blank.copy()
 
+    #In case we want to have chars of various aspect ratios.
     if args.same_sizes==2:
         new_size=random.choice(image_sizes)
         upper_char_list_c=resize_images(upper_char_list_c,new_size)

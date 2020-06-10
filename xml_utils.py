@@ -31,10 +31,6 @@ def addObject(maintag,label,x1,y1,x2,y2):
     return maintag
 
 def write_as_file(filename,tree):
+    """Saves the tree as a xml file"""
     with open(f'{filename}.xml','w') as outfile:
         outfile.write(prettify(tree))
-
-
-# top=Element('Annotation')
-# top=addObject(top,'car',1,2,3,4)
-# top=addObject(top,'bus',2,3,4,5)
