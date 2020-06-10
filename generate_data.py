@@ -18,7 +18,7 @@ coor_list=[]
 upper_char_list=[]
 lower_char_list=[]
 advance=25
-image_sizes=[5,10,15,20,25,30,35,40,45,50]
+image_sizes=[15,20,25,30,35,40,45,50]
 background_arr=[]
 
 def resize_images(arr,new_size):
