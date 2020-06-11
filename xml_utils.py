@@ -19,12 +19,12 @@ def addObject(maintag,label,x1,y1,x2,y2):
 
     xmin=SubElement(bndbox,'xmin')
     xmin.text=f"{x1}"
-    ymin=SubElement(bndbox,'xmin')
+    ymin=SubElement(bndbox,'ymin')
     ymin.text=f"{y1}"
 
     xmax=SubElement(bndbox,'xmax')
     xmax.text=f"{x2}"
-    ymax=SubElement(bndbox,'xmax')
+    ymax=SubElement(bndbox,'ymax')
     ymax.text=f"{y2}"
 
 

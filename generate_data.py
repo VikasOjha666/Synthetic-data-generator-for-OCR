@@ -88,8 +88,18 @@ for _ in range(args.n_samples):
             x_ptr=0
             y_ptr+=advance*4
         elif y_ptr>=900:
-            back_copy.save(f'./generated_data/Images/{str(file_count)}.jpg')
-            write_as_file(f'./generated_data/Annotations/{str(file_count)}',top)
+            if args.char_type==1:
+                back_copy.save(f'./generated_data/Images/{str(file_count)}_1.jpg')
+                write_as_file(f'./generated_data/Annotations/{str(file_count)}_1',top)
+            elif args.char_type==2:
+                back_copy.save(f'./generated_data/Images/{str(file_count)}_2.jpg')
+                write_as_file(f'./generated_data/Annotations/{str(file_count)}_2',top)
+            elif args.char_type==3:
+                back_copy.save(f'./generated_data/Images/{str(file_count)}_3.jpg')
+                write_as_file(f'./generated_data/Annotations/{str(file_count)}_3',top)
+            else:
+                back_copy.save(f'./generated_data/Images/{str(file_count)}_4.jpg')
+                write_as_file(f'./generated_data/Annotations/{str(file_count)}_4',top)
             file_count+=1
             x_ptr=0
             y_ptr=0
@@ -104,29 +114,29 @@ for _ in range(args.n_samples):
                     if args.char_type==1:
                         idx=np.random.randint(0,len(upper_char_list_c))
                         back_copy.paste(upper_char_list_c[idx],(x_ptr+advance,y_ptr))
-                        label=upper_letters_name[idx].split('.')[0]
+                        label=upper_letters_name[idx].split('.')[0].split('_')[0]
                         top=addObject(top,label,x_ptr,y_ptr,x_ptr+advance,y_ptr+advance)
                     elif args.char_type==2:
                         idx=np.random.randint(0,len(lower_char_list_c))
                         back_copy.paste(lower_char_list_c[idx],(x_ptr+advance,y_ptr))
-                        label=lower_letters_name.split('.')[0]
+                        label=lower_letters_name[idx].split('.')[0].split('_')[0]
                         top=addObject(top,label,x_ptr,y_ptr,x_ptr+advance,y_ptr+advance)
 
                     elif args.char_type==4:
                         if x_ptr==0:
                             idx=np.random.randint(0,len(upper_char_list_c))
                             back_copy.paste(upper_char_list_c[idx],(x_ptr+advance,y_ptr))
-                            label=upper_letters_name[idx].split('.')[0]
+                            label=upper_letters_name[idx].split('.')[0].split('_')[0]
                             top=addObject(top,label,x_ptr,y_ptr,x_ptr+advance,y_ptr+advance)
                         else:
                             idx=np.random.randint(0,len(lower_char_list_c))
                             back_copy.paste(lower_char_list_c[idx],(x_ptr+advance,y_ptr))
-                            label=lower_letters_name.split('.')[0]
+                            label=lower_letters_name[idx].split('.')[0].split('_')[0]
                             top=addObject(top,label,x_ptr,y_ptr,x_ptr+advance,y_ptr+advance)
                     elif args.char_type==3:
                         idx=np.random.randint(0,len(both_char_list_c))
                         back_copy.paste(both_char_list_c[idx],(x_ptr+advance,y_ptr))
-                        label=both_letters_label[idx].split(".")[0]
+                        label=both_letters_name[idx].split(".")[0].split('_')[0]
                         top=addObject(top,label,x_ptr,y_ptr,x_ptr+advance,y_ptr+advance)
                     else:
                         pass
