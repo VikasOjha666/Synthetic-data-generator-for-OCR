@@ -14,7 +14,7 @@ def addObject(maintag,label,x1,y1,x2,y2):
     """This will create the subtree same as prescribed by Pascal VOC"""
     object=SubElement(maintag,"object")
     name=SubElement(object,'name')
-    name.text=f'{label}'
+    name.text=f'{label.lower()}'
     bndbox=SubElement(object,'bndbox')
 
     xmin=SubElement(bndbox,'xmin')
