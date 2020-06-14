@@ -116,12 +116,12 @@ for _ in range(args.n_samples):
                     if args.char_type==1:
                         idx=np.random.randint(0,len(upper_char_list_c))
                         back_copy.paste(upper_char_list_c[idx],(x_ptr+advance,y_ptr))
-                        label=upper_letters_name[idx].split('.')[0].split('_')[0]
+                        
 
                     elif args.char_type==2:
                         idx=np.random.randint(0,len(lower_char_list_c))
                         back_copy.paste(lower_char_list_c[idx],(x_ptr+advance,y_ptr))
-                        label=lower_letters_name[idx].split('.')[0].split('_')[0]
+                       
 
 
                     elif args.char_type==4:
@@ -133,18 +133,17 @@ for _ in range(args.n_samples):
                         else:
                             idx=np.random.randint(0,len(lower_char_list_c))
                             back_copy.paste(lower_char_list_c[idx],(x_ptr+advance,y_ptr))
-                            label=lower_letters_name[idx].split('.')[0].split('_')[0]
-
+                           
                     elif args.char_type==3:
                         idx=np.random.randint(0,len(both_char_list_c))
                         back_copy.paste(both_char_list_c[idx],(x_ptr+advance,y_ptr))
-                        label=both_letters_name[idx].split(".")[0].split('_')[0]
+                       
 
                     else:
                         pass
                     x_ptr+=advance+1
             
-            top=addObject(top,label,x_ptr_s,y_ptr_s,x_ptr_s+(advance*word_len),y_ptr_s+advance)
+            top=addObject(top,'text',x_ptr_s,y_ptr_s,x_ptr_s+(advance*word_len),y_ptr_s+advance)
 
 
 
