@@ -15,6 +15,10 @@ def addObject(maintag,label,x1,y1,x2,y2):
     object=SubElement(maintag,"object")
     name=SubElement(object,'name')
     name.text=f'{label.lower()}'
+    truncated=SubElement(object,'truncated')
+    truncated.text='0'
+    difficult=SubElement(object,'difficult')
+    difficult.text='0'
     bndbox=SubElement(object,'bndbox')
 
     xmin=SubElement(bndbox,'xmin')
