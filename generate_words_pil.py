@@ -40,7 +40,7 @@ for ftname in fonts:
 
 for _ in tqdm(range(args.n_samples)):
 	top=Element('Annotations')
-	background=random.choice(background_imgs)
+	background=random.choice(background_imgs).copy()
 	draw=ImageDraw.Draw(background)
 	font=ImageFont.truetype(random.choice(fontlist),size=random.choice([4,6,8,10,12,16]))
 	bounding_boxes=[]
