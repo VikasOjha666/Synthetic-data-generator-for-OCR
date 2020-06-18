@@ -54,8 +54,8 @@ for _ in tqdm(range(args.n_samples)):
 			random.shuffle(chars)
 			word=''.join(chars[:random.choice([2,3,4,5,6,7,8,9,10,11,12,12])])
 		else:
-			upper_chars=list(string.upper_case)
-			lower_chars=list(string.lower_case)
+			upper_chars=list(string.ascii_uppercase)
+			lower_chars=list(string.ascii_lowercase)
 			word=''.join(upper_chars[random.choice(upper_chars)]).join(lower_chars[:random.choice([1,2,3,4,5,6,7,8,9,10,11])])
 
 
