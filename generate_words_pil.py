@@ -42,7 +42,8 @@ for _ in tqdm(range(args.n_samples)):
 	top=Element('Annotations')
 	background=random.choice(background_imgs).copy()
 	draw=ImageDraw.Draw(background)
-	font=ImageFont.truetype(random.choice(fontlist),size=random.choice([4,6,8,10,12,16]))
+	#font=ImageFont.truetype(random.choice(fontlist),size=random.choice([4,6,8,10,12,16]))
+	font=ImageFont.truetype(random.choice(fontlist),size=12)
 	bounding_boxes=[]
 	while True:
 		if args.char_type==1:
@@ -56,7 +57,7 @@ for _ in tqdm(range(args.n_samples)):
 		else:
 			upper_chars=list(string.ascii_uppercase)
 			lower_chars=list(string.ascii_lowercase)
-			word=''.join(upper_chars[random.choice(upper_chars)]).join(lower_chars[:random.choice([1,2,3,4,5,6,7,8,9,10,11])])
+			word=''.join(random.choice(upper_chars)).join(lower_chars[:random.choice([1,2,3,4,5,6,7,8,9,10,11])])
 
 
 		
@@ -66,8 +67,15 @@ for _ in tqdm(range(args.n_samples)):
 		elif y_ptr>=np.array(background).shape[0]:
 			x_ptr=0
 			y_ptr=0
-			background.save(f'./generated_data/Images/{file_count}.jpg')
-			write_as_file(f'./generated_data/Annotations/{file_count}',top)
+			if args.char_type==1:
+				background.save(f'./generated_data/Images/{file_count}_1.jpg')
+				write_as_file(f'./generated_data/Annotations/{file_count}_1',top)
+			elif args.char_type==2:
+				background.save(f'./generated_data/Images/{file_count}_2.jpg')
+				write_as_file(f'./generated_data/Annotations/{file_count}_2',top)
+			else:
+				background.save(f'./generated_data/Images/{file_count}_3.jpg')
+				write_as_file(f'./generated_data/Annotations/{file_count}_3',top)
 			break
 		else:
 			draw.text((x_ptr,y_ptr),text=word,font=font,fill='rgb(0,0,0)')
